@@ -1,0 +1,29 @@
+version: '3'
+services:
+  joomla:
+    image: joomla:php7.2
+    volumes:
+      - web:/var/www/html
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 8085:80
+    environment:
+      JOOMLA_DB_HOST: db
+      JOOMLA_DB_PASSWORD: 123
+  db:
+    image: mariadb
+    volumes:
+      - dbdata:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: dbweb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123
+    ports:
+      - 3307:3306
+volumes:
+  dbdata:
+  web:
